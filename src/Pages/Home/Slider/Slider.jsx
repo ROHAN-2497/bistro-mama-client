@@ -7,9 +7,16 @@ import slider2 from "../../../assets/assets/home/slide2.jpg";
 import slider3 from "../../../assets/assets/home/slide3.jpg";
 import slider4 from "../../../assets/assets/home/slide4.jpg";
 import slider5 from "../../../assets/assets/home/slide5.jpg";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 const Slider = () => {
   return (
-    <Swiper
+    <section>
+        <SectionTitle
+        heading={'---From 11:00am to 10:00pm---'}
+        subTitle={'ORDER ONLINE'}
+        >
+        </SectionTitle>
+        <Swiper
       slidesPerView={4}
       spaceBetween={30}
       centeredSlides={true}
@@ -40,6 +47,7 @@ const Slider = () => {
         <h3 className="uppercase text-4xl text-center -mt-16 font-semibold text-white">drinks</h3>
       </SwiperSlide>
     </Swiper>
+    </section>
   );
 };
 
