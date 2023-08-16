@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     const navOption = <>
-     <li><a>Item 1</a></li>         
-              <li><a>Item 2</a></li>
+     <li><Link to='/home'>Home</Link></li>         
+              <li><Link to='/menu'>Our Menu</Link></li>
     </>
     return (
         <div className="max-w-7xl mx-auto navbar fixed z-10 bg-base-100 text-white bg-opacity-30 bg-black">
