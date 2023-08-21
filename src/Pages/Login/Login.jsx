@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha, } from 'react-simple-captcha';
 
 
 const Login = () => {
+    
+
 
     const captchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true)
@@ -30,7 +34,11 @@ const Login = () => {
     }
 
   return (
+    
     <div className="hero min-h-screen bg-base-200">
+        <Helmet>
+  <title>Bistro | Login</title>
+</Helmet>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center md:w-1/2 lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
@@ -80,6 +88,7 @@ const Login = () => {
             <div className="form-control mt-6">
               <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
             </div>
+            <p>New Here? <Link to='/signup' className='text-blue-500 font-medium'>Create a New Account</Link></p>
           </form>
         </div>
       </div>
