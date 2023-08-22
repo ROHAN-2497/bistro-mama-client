@@ -11,11 +11,11 @@ import SignUp from "../Pages/SignUp/SignUp";
 
 export const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Main></Main>,
       children: [
         {
-            path: '/home',
+            path: 'home',
             element: <Home></Home>
         },
         {
