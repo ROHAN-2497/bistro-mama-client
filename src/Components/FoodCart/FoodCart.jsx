@@ -1,8 +1,52 @@
+import { useContext } from "react";
+import { AuthContext } from "../../Provides/AuthProvider";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const FoodCart = ({ item }) => {
-  const { image, recipe, name, price } = item;
-  const handleAddToCart = item =>{
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { image, recipe, name, price, _id} = item;
+  const handleAddToCart = (item) => {
     console.log(item);
-  }
+    if (user && user.email) {
+      const cartItem = {menuItem: _id,  image, recipe, name, price, email: user.email }
+      fetch("http://localhost:5000/carts", {
+        method: 'POST',
+        headers: {
+          'content-type' : 'application/json'
+        },
+        body: JSON.stringify(cartItem)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Food Item Saved on Cart",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+    } else {
+      Swal.fire({
+        title: "please Login To order the food",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+        navigate('/login', {state: {from: location}})
+        }
+      });
+    }
+  };
 
   return (
     <div>
@@ -17,7 +61,10 @@ const FoodCart = ({ item }) => {
           <h2 className="card-title">{name}</h2>
           <p>{recipe}</p>
           <div className="card-actions justify-end">
-            <button onClick={() => handleAddToCart(item)} className="btn btn-outline border-0 border-b-4 text-yellow-500">
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="btn btn-outline border-0 border-b-4 text-yellow-500"
+            >
               Add To Cart
             </button>
           </div>

@@ -10,7 +10,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [disabled, setDisabled] = useState(true)
-
+   
     const from = location.state?.from?.pathname || "/";
 
    useEffect(() =>{
@@ -101,8 +101,9 @@ const Login = () => {
                 className="input input-bordered"
               />
             </div>
+            {/* todo : make btn disable for captcha */}
             <div className="form-control mt-6">
-              <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
+              <input disabled={false} className="btn btn-primary" type="submit" value="Login" />
             </div>
             <p>New Here? <Link to='/signup' className='text-blue-500 font-medium'>Create a New Account</Link></p>
           </form>
