@@ -15,22 +15,22 @@ const DashBoard = () => {
           Open drawer
         </label>
       </div>
-      <div className="drawer-side   bg-[#D1A054]">
+      <div className="drawer-side bg-[#D1A054]">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 ">
+        <ul className="menu p-4 w-80  ">
           {/* Sidebar content here */}
           <li>
-            <NavLink to="">
+            <NavLink to="/dashboard/userhome">
               <FaHome></FaHome>User Home
             </NavLink>
           </li>
           <li>
-            <NavLink>
+            <NavLink  to="/dashboard/reservation">
               <FaCalendar></FaCalendar> ReserVation
             </NavLink>{" "}
           </li>
           <li>
-            <NavLink>
+            <NavLink to="/dashboard/history">
               <FaWallet></FaWallet> Payment History
             </NavLink>{" "}
           </li>
@@ -41,7 +41,9 @@ const DashBoard = () => {
           </li>
           <div className="divider"></div> 
           <li><NavLink to="/"><FaHome></FaHome> Home</NavLink></li>
-          <li><NavLink> Menu</NavLink></li>
+          <li><NavLink to="/menu"> Menu</NavLink></li>
+          <li><NavLink to="/order/salad"> Order Food</NavLink></li>
+          
           
         </ul>
       </div>
