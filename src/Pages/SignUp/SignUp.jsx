@@ -20,20 +20,34 @@ const SignUp = () => {
       const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name, data.photo)
-      .then(() =>{
-      console.log('update user profile info')
-      reset();
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'User Profile Update...',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      navigate('/home');
+        .then(() => {
+          const saveUser = { name:data.name, email:data.email };
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            Headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+         
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            reset();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User Profile Update...",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          }
+        })
+        .catch((error) => console.log(error));
       })
-      .catch(error => console.log(error))
     });
+  
   };
 
   return (
