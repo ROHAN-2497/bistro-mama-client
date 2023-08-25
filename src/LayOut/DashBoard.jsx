@@ -1,7 +1,9 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { FaCalendar, FaHome, FaShoppingCart, FaWallet } from "react-icons/fa";
+import useCart from "../Hooks/useCart";
 
 const DashBoard = () => {
+  const [cart] = useCart();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -37,6 +39,7 @@ const DashBoard = () => {
           <li>
             <NavLink to="/dashboard/mycart">
               <FaShoppingCart></FaShoppingCart>My Cart
+              <span className="badge badge-secondary">+{cart?.length || 0 }</span>
             </NavLink>
           </li>
           <div className="divider"></div> 
