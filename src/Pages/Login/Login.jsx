@@ -8,9 +8,9 @@ import SocialLogin from '../Share/SocialLogin/SocialLogin';
 
 const Login = () => {
     const {signIn} = useContext(AuthContext);
+    const [disabled, setDisabled] = useState(true)
     const navigate = useNavigate();
     const location = useLocation();
-    const [disabled, setDisabled] = useState(true)
    
     const from = location.state?.from?.pathname || "/";
 
@@ -76,7 +76,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 placeholder="email"
-                className="input input-bordered"
+                // className="input input-bordered"
               />
             </div>
             <div className="form-control">
