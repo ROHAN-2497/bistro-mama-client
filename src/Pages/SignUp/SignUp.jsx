@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provides/AuthProvider";
 import Swal from "sweetalert2";
 import SocialLogin from "../Share/SocialLogin/SocialLogin";
@@ -20,35 +20,32 @@ const SignUp = () => {
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
-      updateUserProfile(data.name, data.photo)
-        .then(() => {
-          const saveUser = { name:data.name, email:data.email };
-          fetch("http://localhost:5000/users", {
-            method: "POST",
-            Headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(saveUser),
-         
+      updateUserProfile(data.name, data.photo).then(() => {
+        const saveUser = { name: data.name, email: data.email };
+        fetch("http://localhost:5000/users", {
+          method: "post",
+          Headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
         })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            reset();
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "User Profile Update...",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            navigate("/");
-          }
-        })
-        .catch((error) => console.log(error));
-      })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User Profile Update...",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+            }
+          })
+          .catch((error) => console.log(error));
+      });
     });
-  
   };
 
   return (
@@ -67,7 +64,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className="card md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <form onSubmit={ handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
