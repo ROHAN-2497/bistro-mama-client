@@ -43,8 +43,8 @@ const DashBoard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/reservation">
-                  <FaCalendar></FaCalendar> ADD ITEMS
+                <NavLink to="/dashboard/additem">
+                  <FaCalendar></FaCalendar> ADD AN ITEMS
                 </NavLink>{" "}
               </li>
               <li>
