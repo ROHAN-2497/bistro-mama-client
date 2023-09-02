@@ -48,7 +48,7 @@ const DashBoard = () => {
                 </NavLink>{" "}
               </li>
               <li>
-                <NavLink to="/dashboard/history">
+                <NavLink to="/dashboard/manageitem">
                   <FaWallet></FaWallet> MANAGE ITEMS
                 </NavLink>{" "}
               </li>
