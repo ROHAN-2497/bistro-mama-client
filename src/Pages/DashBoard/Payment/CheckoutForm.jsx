@@ -1,10 +1,26 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAuth from "../../../Hooks/useAuth";
 
 const CheckoutForm = ({price}) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [cardError, setCardError] = useState('');
+  const [cardError, setCardError] = useState('');  
+  const [clientSecret, setClientSecret] = useState("");
+  const {user} = useAuth();
+
+  
+  useEffect(() => {
+    fetch("/create-payment-intent" ,{price}, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price : [{ price : "item" }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, [price]);
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
@@ -26,6 +42,24 @@ const CheckoutForm = ({price}) => {
     setCardError('')
     console.log('paymentMethod', paymentMethod)
    }
+
+   const {paymentIntent, error:confirmError} = await stripe.confirmCardPayment(
+   clientSecret,
+    {
+      payment_method: {
+        card: card,
+        billing_details: {
+          email: user?.email || 'Unknown',
+          name: user?.displayName || "anonymous"
+
+        },
+      },
+    },
+  );
+  if(confirmError){
+    console.log(confirmError)
+  }
+ console.log(paymentIntent)
   };
 
   return (
@@ -47,7 +81,7 @@ const CheckoutForm = ({price}) => {
           },
         }}
       />
-      <button className="btn btn-primary btn-sm mt-4" type="submit" disabled={!stripe}>
+      <button className="btn btn-primary btn-sm mt-4" type="submit" disabled={!stripe || !clientSecret}>
         Pay
       </button>
     </form>
